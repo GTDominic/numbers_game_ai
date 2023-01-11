@@ -3,14 +3,14 @@ interface MenuElement {
     func: () => void,
 }
 
-const menuElements: Array<{
+let menuElements: Array<{
     name: string,
     active: boolean,
     elements: Array<MenuElement>,
 }> = [
     {
         name: 'Window',
-        active: false,
+        active: true,
         elements: [
             {
                 name: 'speed +',
