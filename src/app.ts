@@ -7,5 +7,11 @@ function windowResized() {
 }
 
 function draw() {
-    background(0);
+    background(100);
+    Menu.createMenu();
+}
+
+// For development purposes only
+function testcall(stringy: string = '') {
+    console.log('Testcall! ' + stringy);
 }
