@@ -35,12 +35,7 @@ let menuElements: Array<{
     }, {
         name: 'AI',
         active: false,
-        elements: [
-            {
-                name: 'Testing',
-                func: () => testcall('AI Test'),
-            },
-        ]
+        elements: []
     }
 ];
 

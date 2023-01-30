@@ -33,7 +33,7 @@ class Menu {
         fill(255);
         text(`frameRate: ${globalFrameRate}`, 10, 18);
         translate(150, 0);
-        text(`Current AI: Testing`, 10, 18);
+        text(`Current AI: ${aiList[currentAI].getName()}`, 10, 18);
         translate(300, 0);
         text(`Cursor position: ${mouseX}, ${mouseY}`, 10, 18);
         pop();
