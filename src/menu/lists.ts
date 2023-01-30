@@ -14,15 +14,15 @@ let menuElements: Array<{
         elements: [
             {
                 name: 'speed +',
-                func: () => testcall('speed +'),
+                func: () => Menu.changeFrameRate(true),
             }, {
                 name: 'speed -',
-                func: () => testcall('speed -'),
+                func: () => Menu.changeFrameRate(false),
             },
         ]
     }, {
         name: 'AI',
-        active: true,
+        active: false,
         elements: [
             {
                 name: 'Testing',

@@ -7,6 +7,7 @@ function windowResized() {
 }
 
 function draw() {
+    frameRate(globalFrameRate);
     background(100);
     Menu.createMenu();
 }

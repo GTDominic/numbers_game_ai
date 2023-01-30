@@ -63,4 +63,13 @@ class Menu {
             elements[i].func();
         }
     }
+    public static changeFrameRate(up: boolean): void {
+        const frameRates = [1, 2, 3, 4, 5, 7, 10, 15, 20, 30, 40, 60];
+        let element = 0;
+        for(let i = 0; i < frameRates.length; i++) if(frameRates[i] === globalFrameRate) element = i;
+        if(element === 0 && !up) return;
+        if(element === frameRates.length - 1 && up) return;
+        if(up) globalFrameRate = frameRates[element + 1];
+        else globalFrameRate = frameRates[element - 1];
+    }
 }
