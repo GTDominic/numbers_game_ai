@@ -29,9 +29,38 @@ class Menu {
         translate(0, 60);
         textSize(20);
         fill(255);
-        text(`frameRate: 60`, 10, 18);
+        text(`frameRate: ${globalFrameRate}`, 10, 18);
         translate(150, 0);
         text(`Current AI: Testing`, 10, 18);
+        translate(300, 0);
+        text(`Cursor position: ${mouseX}, ${mouseY}`, 10, 18);
         pop();
+    }
+    public static clickHandler(): void {
+        if(mouseY > height - 90 && mouseY < height - 40) return this.clickMainMenu();
+        for(let i = 0; i < menuElements.length; i++) {
+            if (!menuElements[i].active) continue;
+            this.clickSubMenu(10 + i * 120, menuElements[i].elements);
+        }
+        
+    }
+    private static clickMainMenu(): void {
+        for(let i = 0; i < menuElements.length; i++) {
+            if(mouseX < 10 + i * 120 || mouseX > 110 + i * 120) continue;
+            if(menuElements[i].active) {
+                menuElements[i].active = false;
+                continue;
+            }
+            for(let element of menuElements) element.active = false;
+            menuElements[i].active = true;
+        }
+    }
+    private static clickSubMenu(x: number, elements: Array<MenuElement>): void {
+        if(mouseX < x || mouseX > x + 500) return;
+        for(let i = 0; i < elements.length; i++) {
+            if(mouseY < height - 110 - 40 * (elements.length - i)) continue;
+            if(mouseY > height - 70 - 40 * (elements.length - i)) continue;
+            elements[i].func();
+        }
     }
 }

@@ -11,6 +11,10 @@ function draw() {
     Menu.createMenu();
 }
 
+function mouseClicked() {
+    Menu.clickHandler();
+}
+
 // For development purposes only
 function testcall(stringy: string = '') {
     console.log('Testcall! ' + stringy);

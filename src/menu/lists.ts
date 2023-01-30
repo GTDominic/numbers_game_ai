@@ -10,7 +10,7 @@ let menuElements: Array<{
 }> = [
     {
         name: 'Window',
-        active: true,
+        active: false,
         elements: [
             {
                 name: 'speed +',
@@ -22,7 +22,7 @@ let menuElements: Array<{
         ]
     }, {
         name: 'AI',
-        active: false,
+        active: true,
         elements: [
             {
                 name: 'Testing',
