@@ -10,6 +10,7 @@ class Menu {
         push();
         for (let mainelement of menuElements) {
             fill(255, 0, 0);
+            if(mainelement.name === '|| Pause') fill(0, 255, 0);
             rect(0, 0, 100, 50);
             textSize(20);
             fill(0);
@@ -72,6 +73,16 @@ class Menu {
         createBoardActive = false;
         for(let i = 0; i < menuElements.length; i++) {
             if(mouseX < 10 + i * 120 || mouseX > 110 + i * 120) continue;
+            if(menuElements[i].name === '> Run') {
+                menuElements[i].name = '|| Pause';
+                runAI = true;
+                continue;
+            }
+            if(menuElements[i].name === '|| Pause') {
+                menuElements[i].name = '> Run';
+                runAI = false;
+                continue;
+            }
             if(menuElements[i].active) {
                 menuElements[i].active = false;
                 continue;

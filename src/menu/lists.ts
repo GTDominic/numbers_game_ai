@@ -36,6 +36,10 @@ let menuElements: Array<{
         name: 'AI',
         active: false,
         elements: []
+    }, {
+        name: '> Run',
+        active: false,
+        elements: []
     }
 ];
 
