@@ -25,6 +25,31 @@ class Board {
         this.board = [[]];
         this.appendValues(this.startArray);
     }
+    /**
+     * Crosses two elements and checks wether they are crossable
+     * @param v1 First value to cross
+     * @param v2 Second value to cross
+     * @returns boolean if they are crossed
+     */
+    public cross(v1: Coordinate, v2: Coordinate): boolean {
+        if(!this.board[v1.y][v1.x].visible) return false;
+        if(!this.board[v2.y][v2.x].visible) return false;
+        if(this.board[v1.y][v1.x].value != this.board[v2.y][v2.x].value) {
+            if(this.board[v1.y][v1.x].value + this.board[v2.y][v2.x].value != 10) return false;
+        }
+        console.log(this.findBottomNeighbour(v1.x, v1.y + 1));
+        console.log(v2);
+        if(
+            compareCoordinates(this.findTopNeighbour(v1.x, v1.y - 1), v2) && 
+            compareCoordinates(this.findBottomNeighbour(v1.x, v1.y + 1), v2) &&
+            compareCoordinates(this.findRightNeighbour(v1.x + 1, v1.y), v2) &&
+            compareCoordinates(this.findLeftNeighbour(v1.x - 1, v1.y), v2)
+        ) return false;
+        console.log("Test");
+        this.board[v1.y][v1.x].visible = false;
+        this.board[v2.y][v2.x].visible = false;
+        return true;
+    }
     public check(): void {
         let values: Array<number> = [];
         for(let row of this.board) {
@@ -36,6 +61,7 @@ class Board {
         this.appendValues(values);
     }
     public getValue(x: number, y: number): number {
+        if(this.board[y][x] == undefined) return null;
         return this.board[y][x].value;
     }
     public logBoard(): void {
@@ -43,13 +69,13 @@ class Board {
     }
     /**
      * Function to find the top neighbour of an element
-     * @param x X Coordinate of the element one above (can be -1)
-     * @param y Y Coordinate of the element one above
+     * @param x X Coordinate of the element one above
+     * @param y Y Coordinate of the element one above (can be -1)
      * @returns X and Y Coordinate of the neighbour (null if no neighbour)
      */
-    public findTopNeighbour(x: number, y: number): {x: number, y: number} {
+    public findTopNeighbour(x: number, y: number): Coordinate {
         if(y < 0) return null;
-        if(!this.board[y][x].visible) this.findTopNeighbour(x, y - 1);
+        if(!this.board[y][x].visible) return this.findTopNeighbour(x, y - 1);
         return {x: x, y: y};
     }
     /**
@@ -58,10 +84,10 @@ class Board {
      * @param y Y Coordinate of the element one below
      * @returns X and Y Coordinate of the neighbour (null if no neighbour)
      */
-    public findBottomNeighbour(x: number, y: number): {x: number, y: number} {
+    public findBottomNeighbour(x: number, y: number): Coordinate {
         if(y > this.board.length - 1) return null;
         if(y === this.board.length - 1 && x > this.board[y].length - 1) return null;
-        if(!this.board[y][x].visible) this.findBottomNeighbour(x, y + 1);
+        if(!this.board[y][x].visible) return this.findBottomNeighbour(x, y + 1);
         return {x: x, y: y};
     }
     /**
@@ -70,10 +96,10 @@ class Board {
      * @param y Y Coordinate of the element one to the left
      * @returns X and Y Coordinate of the neighbour (null if no neighbour)
      */
-    public findLeftNeighbour(x: number, y: number): {x: number, y: number} {
+    public findLeftNeighbour(x: number, y: number): Coordinate {
         if(y < 0) return null;
-        if(x < 0) this.findLeftNeighbour(8, y - 1);
-        if(!this.board[y][x].visible) this.findLeftNeighbour(x - 1, y);
+        if(x < 0) return this.findLeftNeighbour(8, y - 1);
+        if(!this.board[y][x].visible) return this.findLeftNeighbour(x - 1, y);
         return {x: x, y: y};
     }
     /**
@@ -82,11 +108,11 @@ class Board {
      * @param y Y Coordinate of the element one to the right
      * @returns X and Y Coordinate of the neighbour (null if no neighbour)
      */
-    public findRightNeighbour(x: number, y: number): {x: number, y: number} {
+    public findRightNeighbour(x: number, y: number): Coordinate {
         if(y > this.board.length - 1) return null;
         if(y === this.board.length - 1 && x > this.board[y].length - 1) return null;
-        if(x > 8) this.findRightNeighbour(0, y + 1);
-        if(!this.board[y][x].visible) this.findRightNeighbour(x + 1, y);
+        if(x > 8) return this.findRightNeighbour(0, y + 1);
+        if(!this.board[y][x].visible) return this.findRightNeighbour(x + 1, y);
         return {x: x, y: y};
     }
     public drawBoard(): void {

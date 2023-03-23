@@ -11,7 +11,6 @@ function setup() {
             });
         }
     }
-    console.log(menuElements);
 }
 
 function windowResized() {
@@ -21,6 +20,7 @@ function windowResized() {
 function draw() {
     frameRate(globalFrameRate);
     background(100);
+    if(runAI) aiList[currentAI].step();
     board.drawBoard();
     Menu.createMenu();
 }
